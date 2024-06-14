@@ -21,32 +21,38 @@ class _MobileOverlay extends StatelessWidget {
             color: overlayColor,
             child: Row(
               children: [
-                Expanded(
-                  child: DoubleTapIcon(
-                    tag: tag,
-                    isForward: false,
-                    height: double.maxFinite,
-                    onDoubleTap: _isRtl()
-                        ? podCtr.onRightDoubleTap
-                        : podCtr.onLeftDoubleTap,
+                if (podCtr.hidePlayBackwardButton)
+                  Expanded(child: Container())
+                else
+                  Expanded(
+                    child: DoubleTapIcon(
+                      tag: tag,
+                      isForward: false,
+                      height: double.maxFinite,
+                      onDoubleTap: _isRtl()
+                          ? podCtr.onRightDoubleTap
+                          : podCtr.onLeftDoubleTap,
+                    ),
                   ),
-                ),
                 SizedBox(
                   height: double.infinity,
                   child: Center(
                     child: _AnimatedPlayPauseIcon(tag: tag, size: 42),
                   ),
                 ),
-                Expanded(
-                  child: DoubleTapIcon(
-                    isForward: true,
-                    tag: tag,
-                    height: double.maxFinite,
-                    onDoubleTap: _isRtl()
-                        ? podCtr.onLeftDoubleTap
-                        : podCtr.onRightDoubleTap,
+                if (podCtr.hidePlayBackwardButton)
+                  Expanded(child: Container())
+                else
+                  Expanded(
+                    child: DoubleTapIcon(
+                      isForward: true,
+                      tag: tag,
+                      height: double.maxFinite,
+                      onDoubleTap: _isRtl()
+                          ? podCtr.onLeftDoubleTap
+                          : podCtr.onRightDoubleTap,
+                    ),
                   ),
-                ),
               ],
             ),
           ),
@@ -61,18 +67,21 @@ class _MobileOverlay extends StatelessWidget {
                   child: podCtr.videoTitle ?? const SizedBox(),
                 ),
               ),
-              MaterialIconButton(
-                toolTipMesg: podCtr.podPlayerLabels.settings,
-                color: itemColor,
-                onPressed: () {
-                  if (podCtr.isOverlayVisible) {
-                    _bottomSheet(context);
-                  } else {
-                    podCtr.toggleVideoOverlay();
-                  }
-                },
-                child: const Icon(
-                  Icons.more_vert_rounded,
+              Visibility(
+                visible: !podCtr.hideOptionsMenu,
+                child: MaterialIconButton(
+                  toolTipMesg: podCtr.podPlayerLabels.settings,
+                  color: itemColor,
+                  onPressed: () {
+                    if (podCtr.isOverlayVisible) {
+                      _bottomSheet(context);
+                    } else {
+                      podCtr.toggleVideoOverlay();
+                    }
+                  },
+                  child: const Icon(
+                    Icons.more_vert_rounded,
+                  ),
                 ),
               ),
             ],

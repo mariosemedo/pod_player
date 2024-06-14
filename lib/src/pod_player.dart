@@ -35,6 +35,9 @@ class PodVideoPlayer extends StatefulWidget {
   final double frameAspectRatio;
   final double videoAspectRatio;
   final bool alwaysShowProgressBar;
+  final bool hideOptionsMenu;
+  final bool hidePlayBackwardButton;
+  final bool hidePlayForwardButton;
   final bool matchVideoAspectRatioToFrame;
   final bool matchFrameAspectRatioToVideo;
   final PodProgressBarConfig podProgressBarConfig;
@@ -61,6 +64,9 @@ class PodVideoPlayer extends StatefulWidget {
     this.frameAspectRatio = 16 / 9,
     this.videoAspectRatio = 16 / 9,
     this.alwaysShowProgressBar = true,
+    this.hideOptionsMenu = false,
+    this.hidePlayBackwardButton = false,
+    this.hidePlayForwardButton = false,
     this.podProgressBarConfig = const PodProgressBarConfig(),
     this.podPlayerLabels = const PodPlayerLabels(),
     this.overlayBuilder,
@@ -85,6 +91,9 @@ class PodVideoPlayer extends StatefulWidget {
       ///add to ui controller
       ..podPlayerLabels = podPlayerLabels
       ..alwaysShowProgressBar = alwaysShowProgressBar
+      ..hideOptionsMenu = hideOptionsMenu
+      ..hidePlayBackwardButton = hidePlayBackwardButton
+      ..hidePlayForwardButton = hidePlayForwardButton
       ..podProgressBarConfig = podProgressBarConfig
       ..overlayBuilder = overlayBuilder
       ..videoTitle = videoTitle
